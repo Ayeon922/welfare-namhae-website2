@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
@@ -629,6 +629,22 @@ def generate_recommendation(user_id, session_id):
     except Exception as e:
         db.session.rollback()
         raise e
+
+# 웹페이지 라우트들
+@app.route('/')
+def index():
+    """메인 페이지"""
+    return render_template('index.html')
+
+@app.route('/survey')
+def survey():
+    """설문조사 페이지"""
+    return render_template('survey.html')
+
+@app.route('/results')
+def results():
+    """결과 페이지"""
+    return render_template('results.html')
 
 # 데이터베이스 초기화 함수
 def create_tables():
